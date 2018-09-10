@@ -6,7 +6,7 @@ secret_word = ''
 blanks = []
 guessed = []
 
-attempts_left = 5
+attempts_left = 7
 
 game_won = False
 game_lost = False
@@ -41,13 +41,32 @@ def initialize():
     secret_word = ''
     blanks = []
     guessed = []
-    attempts_left = 5
+    attempts_left = 7
     game_won = False
     game_lost = False
     help_prompt = False
 
     load_word()
     gen_blanks()
+
+def draw_spaceman():
+    global attempts_left
+
+    if attempts_left == 7:
+        return '\n\n'
+    elif attempts_left == 6:
+        return ' o \n\n'
+    elif attempts_left == 5:
+        return ' o \n | \n'
+    elif attempts_left == 4:
+        return ' o \n/| \n'
+    elif attempts_left == 3:
+        return ' o \n/|\\\n'
+    elif attempts_left == 2:
+        return ' o \n/|\\\n/  '
+    elif attempts_left == 1:
+        return ' o \n/|\\\n/ \\'
+    
 
 def render_screen():
     global blanks
@@ -60,15 +79,9 @@ def render_screen():
 
     os.system('cls' if os.name == 'nt' else 'clear')
     if game_won:
-        print('CONGRATS!!! You are a spaceman!')
-        print()
-        print('The word was: ' + secret_word)
-        print()
+        print('CONGRATS!!! You survive another day! :D\n\n' + 'The word was: ' + secret_word + '\n')
     elif game_lost:
-        print('BOO!! You got sucked up by a black hole! :\'(')
-        print()
-        print('The word was: ' + secret_word)
-        print()
+        print('RIP! You got shot into space. GG :\'(\n\n' + 'The word was: ' + secret_word + '\n')
     else:
         blank_lines = ''
         guesses = ''
@@ -80,14 +93,11 @@ def render_screen():
             guesses = guesses + i + ' '
 
         print(blank_lines)
-        print()
-        print('Guessed: ' + guesses)
-        print()
-        print('Attempts left: ' + str(attempts_left))
-        print()
+        print('\n\nGuessed: ' + guesses + '\n')
+        print(draw_spaceman())
+        print('\n')
         if help_prompt:
-            print('Enter a single letter or \'quit\' to exit the program')
-            print()
+            print('Enter a single letter or \'quit\' to exit the program.\n')
             help_prompt = False
         
 
