@@ -3,8 +3,8 @@ import random
 import os
 
 secret_word = ''
-blanks = []
-guessed = []
+blanks = list()
+guessed = list()
 
 attempts_left = 7
 
@@ -26,8 +26,8 @@ def load_word():
 def gen_blanks():
     global secret_word
     global blanks
-    for i in secret_word:
-        blanks.append('_')
+    
+    blanks = list('_' * len(secret_word))
 
 def initialize():
     global secret_word
@@ -39,8 +39,8 @@ def initialize():
     global help_prompt
 
     secret_word = ''
-    blanks = []
-    guessed = []
+    blanks = list()
+    guessed = list()
     attempts_left = 7
     game_won = False
     game_lost = False
