@@ -133,7 +133,7 @@ def process_input(inp):
     if inp == 'quit':
         running = False
     elif len(inp) == 1:
-        check_guess(inp)
+        check_guess(inp.lower())
     else:
         help_prompt = True
 
