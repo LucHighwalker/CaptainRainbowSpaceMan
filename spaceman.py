@@ -102,9 +102,15 @@ def render_screen():
             help_prompt = False
         
 
+# check for specific exceptions
 def user_input(prompt):
-    user_input = input(prompt)
-    return user_input
+    try: 
+        user_input = input(prompt)
+        return user_input
+
+    except:
+        return ''
+
 
 def check_guess(guess):
     global secret_word
@@ -159,6 +165,7 @@ def check_win():
         return
 
 
+# tighten up loop
 
 initialize()
 while running:
