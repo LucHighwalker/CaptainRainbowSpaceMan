@@ -28,7 +28,7 @@ def gen_blanks():
     global secret_word
     global blanks
     
-    blanks = list('_' * len(secret_word))
+    blanks = list('-' * len(secret_word))
 
 def initialize():
     global secret_word
@@ -150,7 +150,7 @@ def check_win():
 
     found_blank = False
     for i in blanks:
-        if i == '_':
+        if i == '-':
             found_blank = True
             break
     
