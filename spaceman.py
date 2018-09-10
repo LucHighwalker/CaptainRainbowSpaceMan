@@ -16,6 +16,7 @@ running = True
 
 def load_word():
     global secret_word
+
     f = open('words.txt', 'r')
     words_list = f.readlines()
     f.close()
@@ -132,7 +133,7 @@ def process_input(inp):
 
     if inp == 'quit':
         running = False
-    elif len(inp) == 1:
+    elif len(inp) == 1 and inp.isalpha():
         check_guess(inp.lower())
     else:
         help_prompt = True
