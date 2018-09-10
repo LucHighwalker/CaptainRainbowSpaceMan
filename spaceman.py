@@ -6,6 +6,9 @@ secret_word = ''
 blanks = []
 guessed = []
 
+help_prompt = False
+running = True
+
 def load_word():
     global secret_word
     f = open('words.txt', 'r')
@@ -30,6 +33,7 @@ def initialize():
 def render_screen():
     global blanks
     global guessed
+    global help_prompt
 
     blank_lines = ''
     guesses = ''
@@ -42,7 +46,12 @@ def render_screen():
         guesses = guesses + i + ' '
 
     print(blank_lines)
-    print(guesses)
+    print()
+    print('Guessed: ' + guesses)
+    print()
+    if help_prompt:
+        print('Enter a single letter or \'quit\' to exit the program')
+        help_prompt = False
         
 
 def user_input(prompt):
@@ -54,21 +63,30 @@ def check_guess(guess):
     global blanks
     global guessed 
 
-    if len(guess) == 1:
-        guessed.append(guess)
-        letter_index = 0
-        for i in secret_word:
-            if i == guess:
-                blanks[letter_index] = guess
-            letter_index += 1
+    guessed.append(guess)
+    letter_index = 0
+    for i in secret_word:
+        if i == guess:
+            blanks[letter_index] = guess
+        letter_index += 1
+
+def process_input(inp):
+    global help_prompt
+    global running
+
+    if inp == 'quit':
+        running = False
+    elif len(inp) == 1:
+        check_guess(inp)
+    else:
+        help_prompt = True
 
 
 initialize()
-running = True
 while running:
     render_screen()
-    guess = user_input('Enter guess: ')
-    check_guess(guess)
+    inp = user_input('Enter guess: ')
+    process_input(inp)
 
 
     
