@@ -102,13 +102,12 @@ def render_screen():
             help_prompt = False
         
 
-# check for specific exceptions
 def user_input(prompt):
     try: 
         user_input = input(prompt)
         return user_input
 
-    except:
+    except EOFError:
         return ''
 
 
@@ -141,8 +140,10 @@ def process_input(inp):
         running = False
     elif len(inp) == 1 and inp.isalpha():
         check_guess(inp.lower())
+        render_screen()
     else:
         help_prompt = True
+        render_screen()
 
 def check_win():
     global blanks
@@ -165,20 +166,20 @@ def check_win():
         return
 
 
-# tighten up loop
-
 initialize()
+render_screen()
 while running:
-    render_screen()
     if not game_won and not game_lost:
         inp = user_input('Enter guess: ')
         process_input(inp)
         check_win()
     else:
+        render_screen()
         inp = user_input('Press enter to replay or enter \'quit\' to exit: ')
         if inp == 'quit' or inp == 'q':
             running = False
         elif not inp:
             initialize()
+            render_screen()
 
     
